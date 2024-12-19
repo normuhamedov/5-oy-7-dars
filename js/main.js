@@ -165,9 +165,11 @@ renderProducts(productsList, elProductTable, "0")
 
 // Delete Part start
 function handleDeleteProduct(id){
+
     const deleteIndex = productsList.findIndex(item => item.id == id)
+    const findDelete = productsList.find(item => item.id == id)
     productsList.splice(deleteIndex, 1)
-    renderProducts(productsList, elProductTable)
+    renderProducts(productsList, elProductTable, findDelete.categoryId)
     localStorage.setItem("products", JSON.stringify(productsList))
 }
 // Delete Part end

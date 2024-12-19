@@ -4,3 +4,10 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.bg-section {
+    background-image: url("../images/body-bg1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
