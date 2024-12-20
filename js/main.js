@@ -15,15 +15,20 @@ elModalWrapper.addEventListener("click", (e) => e.target.id == "wrapper" && elMo
 
 const elCategory1 = document.querySelector(".category-1")
 const elCategory2 = document.querySelector(".category-2")
+
 elCategory1.addEventListener("click", () =>{
-    elCategory1.classList = "category-1 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
-    elCategory2.classList = "category-2 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
+    elCategory1.className = "category-1 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
+    elCategory2.className = "category-2 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
+   const filter1 = productsList.filter((item) => item.categoryId === "0");
+   renderProducts(filter1, elProductTable, "0");
 })
 elCategory2.addEventListener("click", () =>{
-    elCategory2.classList = "category-2 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
-    elCategory1.classList = "category-1 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
+    elCategory2.className = "category-2 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
+    elCategory1.className = "category-1 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
+   const filter1 = productsList.filter((item) => item.categoryId === "1");
+   renderProducts(filter1, elProductTable , "1");
 })
-
+renderProducts(productsList, elProductTable);
 
 
 const handleAddBtnClick = () => {
@@ -109,11 +114,12 @@ const handleAddBtnClick = () => {
         setTimeout(() => {
             elBtnSubmit.innerHTML = "Добавить"
             productsList.push(data)
-            localStorage.setItem("products", JSON.stringify(productsList))
             renderProducts(productsList, elProductTable, data.categoryId)
+            
+            localStorage.setItem("products", JSON.stringify(productsList))
             elModalWrapper.classList.add("scale-0")
             
-            if(data.categoryId == "0"){
+            if(data.categoryId == 0){
                 elCategory1.className = "category-1 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
                 elCategory2.className = "category-2 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
             } else{
@@ -238,7 +244,7 @@ function handleEditBtnClick(id){
         elEditImg.src = URL.createObjectURL(e.target.files[0]);
     })
     
-    let elEditForm = document.querySelector(".edit-form")
+    let elEditForm = document.querySelector(".edit-product")
     elEditForm.addEventListener("submit", function(e){
         e.preventDefault()
         editProduct.imgUrl = elEditImg.src
@@ -247,7 +253,7 @@ function handleEditBtnClick(id){
         editProduct.frame = e.target.frame.value
         editProduct.size = e.target.size.value
         editProduct.amount = e.target.amount.value
-        editProduct.discountPrice = e.target.discont_price.value
+        editProduct.discountPrice = e.target.discount_price.value
         editProduct.depth = e.target.depth.value
         editProduct.status = e.target.status.value
         
@@ -260,13 +266,13 @@ function handleEditBtnClick(id){
             renderProducts(productsList, elProductTable, e.target.categoryId.value)
             localStorage.setItem("products", JSON.stringify(productsList))
             
-            // if(e.target.categoryId.value == "0"){
-            //     elCategory1.className = "category-1 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
-            //     elCategory2.className = "category-2 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
-            // } else{
-            //     elCategory1.className = "category-1 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
-            //     elCategory2.className = "category-2 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
-            // }
+            if(e.target.categoryId.value == "0"){
+                elCategory1.className = "category-1 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
+                elCategory2.className = "category-2 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
+            } else{
+                elCategory1.className = "category-1 text-[35px] text-[#A6A6A6] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-transparent"
+                elCategory2.className = "category-2 text-[35px] text-[#009398] leading-[40.64px] pb-[8px] font-bold border-b-[3px] cursor-pointer border-[#009398]"
+            }
         }, 1000)
     })
     

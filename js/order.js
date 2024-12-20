@@ -9,7 +9,7 @@ let orderList = JSON.parse(localStorage.getItem("order-products")) || []
 
 function renderProducts(arr , list , id) {
     list.innerHTML = null
-    arr.filter(item => item.categoryId = id).forEach(item => {
+    arr.filter(item => item.categoryId == id).forEach(item => {
         let elItem = document.createElement("li")
         elItem.className = `w-[340px] relative bg-slate-200 shadow-mx rounded-tr-[30px] rounded-b-[30px] pt-[31px] pb-[20px] px-[34px]`
         elItem.innerHTML = `
@@ -30,8 +30,10 @@ function renderProducts(arr , list , id) {
         list.append(elItem)
     });
 }
-renderProducts(productData , elProductList, "0")
+renderProducts(productData , elProductList, "0")    
 renderProducts(productData , elInflatableProductList, "1")
+
+
 
 function handleOrderBtnClick(id) {
     const findProduct = productData.find(item => item.id == id)
